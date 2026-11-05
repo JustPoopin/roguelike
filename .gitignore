@@ -1,0 +1,8 @@
+# Godot-specific ignores
+.godot/
+*.translation
+
+# Mono/C# specific ignores (if you use C#)
+.mono/
+data_*/
+mono_crash.*
