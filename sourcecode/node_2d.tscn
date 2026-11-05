@@ -8,8 +8,11 @@
 [ext_resource type="Texture2D" uid="uid://dihufynhpl54b" path="res://Warrior_Run.png" id="3_rj586"]
 [ext_resource type="Texture2D" uid="uid://c3i1yiw032pjy" path="res://Water Background color.png" id="4_kdubu"]
 [ext_resource type="Texture2D" uid="uid://btt7ig8q4hrmi" path="res://Water Foam.png" id="5_kdubu"]
+[ext_resource type="AudioStream" uid="uid://bgjrf637k73k0" path="res://swipe.wav" id="6_0h7mo"]
 [ext_resource type="Texture2D" uid="uid://d1waaqxk0gydw" path="res://Bushe1.png" id="6_d21ai"]
 [ext_resource type="Texture2D" uid="uid://gkf05mdq4q5a" path="res://Tree1.png" id="7_d21ai"]
+[ext_resource type="AudioStream" uid="uid://brrpa3eg40m0c" path="res://foley_footstep_gravel_4.wav" id="7_nr8wp"]
+[ext_resource type="Script" uid="uid://bdstj5nnithxo" path="res://ui.gd" id="11_hqns4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7vxoj"]
 size = Vector2(32, 36)
@@ -1952,6 +1955,12 @@ sprite_frames = SubResource("SpriteFrames_8bm4k")
 animation = &"guard"
 autoplay = "idle"
 
+[node name="SfxRun" type="AudioStreamPlayer2D" parent="CharacterBody2D" unique_id=181685426]
+stream = ExtResource("7_nr8wp")
+
+[node name="SfxAttack" type="AudioStreamPlayer2D" parent="CharacterBody2D" unique_id=1909935394]
+stream = ExtResource("6_0h7mo")
+
 [node name="bushes" type="TileMapLayer" parent="." unique_id=1758187002]
 z_index = 3
 y_sort_enabled = true
@@ -1987,3 +1996,66 @@ y_sort_enabled = true
 position = Vector2(0, -8)
 tile_map_data = PackedByteArray("AAD4/wAAAAAAAAAAAAD5/wAAAAAAAAAAAAD6/wEAAAAAAAAAAAD7/wEAAAAAAAAAAAD8/wIAAAAAAAAAAAD9/wIAAAAAAAAAAAD+/wIAAAAAAAAAAAD//wIAAAAAAAAAAAAAAAIAAAAAAAAAAAABAAEAAAAAAAAAAAACAAEAAAAAAAAAAAADAAAAAAAAAAAAAAAEAP//AAAAAAAAAAAEAP7/AAAAAAAAAAAEAP3/AAAAAAAAAAAEAPz/AAAAAAAAAAADAPv/AAAAAAAAAAACAPr/AAAAAAAAAAABAPr/AAAAAAAAAAAAAPr/AAAAAAAAAAD///r/AAAAAAAAAAD+//r/AAAAAAAAAAD9//r/AAAAAAAAAAD8//r/AAAAAAAAAAD7//v/AAAAAAAAAAD4//7/AAAAAAAAAAD4////AAAAAAAAAAAHAP7/AAAAAAAAAAAHAP3/AAAAAAAAAAAHAPz/AAAAAAAAAAAIAP//AAAAAAAAAAAJAP//AAAAAAAAAAAJAPv/AAAAAAAAAAAJAPz/AAAAAAAAAAAJAP3/AAAAAAAAAAAJAP7/AAAAAAAAAAADAAQAAAAAAAAAAAAEAAMAAAAAAAAAAAAEAAIAAAAAAAAAAAAFAAIAAAAAAAAAAAAGAAMAAAAAAAAAAAAGAAQAAAAAAAAAAAAFAAQAAAAAAAAAAAAEAAQAAAAAAAAAAAD6/wYAAAAAAAAAAAD6/wUAAAAAAAAAAAD5/wUAAAAAAAAAAAD5/wYAAAAAAAAAAAD5//3/AAAAAAAAAAD5//z/AAAAAAAAAAA=")
 tile_set = SubResource("TileSet_h5328")
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=1529925155]
+script = ExtResource("11_hqns4")
+
+[node name="HUD" type="MarginContainer" parent="UI" unique_id=2145019021]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/HUD" unique_id=735981988]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/HUD/HBoxContainer" unique_id=1345713847]
+layout_mode = 2
+text = "HP"
+
+[node name="HPBar" type="ProgressBar" parent="UI/HUD/HBoxContainer" unique_id=273490563]
+custom_minimum_size = Vector2(200, 30)
+custom_maximum_size = Vector2(200, 30)
+layout_mode = 2
+value = 100.0
+show_percentage = false
+
+[node name="PauseMenu" type="Control" parent="UI" unique_id=1389534893]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Dim" type="ColorRect" parent="UI/PauseMenu" unique_id=676756769]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.12941177, 0.019607844, 0, 0.47843137)
+
+[node name="CenterContainer" type="CenterContainer" parent="UI/PauseMenu" unique_id=682110321]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/PauseMenu/CenterContainer" unique_id=611539603]
+layout_mode = 2
+
+[node name="title" type="Label" parent="UI/PauseMenu/CenterContainer/VBoxContainer" unique_id=319201113]
+layout_mode = 2
+text = "PAUSE"
+
+[node name="ContinueButton" type="Button" parent="UI/PauseMenu/CenterContainer/VBoxContainer" unique_id=1118373103]
+layout_mode = 2
+text = "CONTINUE"
+
+[node name="QuitButton" type="Button" parent="UI/PauseMenu/CenterContainer/VBoxContainer" unique_id=399917550]
+layout_mode = 2
+text = "QUIT"
